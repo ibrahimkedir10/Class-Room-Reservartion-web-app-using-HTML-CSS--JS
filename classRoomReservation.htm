@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Ibrahim Kedir's Room Reservation</title>
+    <!--ibrahim comment-->
+    <style>
+        .wrapper {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 150px 150px 150px;
+            background-color: rgb(72, 151, 83);
+            color: #111;
+        }
+
+        .box {
+            background-color: rgb(189, 89, 89);
+            color: #111;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 1em;
+            border: solid black 1px;
+        }
+
+        .a {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .b {
+            grid-column: 2 / span 2;
+            grid-row: 1;
+        }
+
+        .c {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .d {
+            grid-column: 2 / span 2;
+            grid-row: 2;
+        }
+
+        .e {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        .f {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        .g {
+            grid-column: 3;
+            grid-row: 3;
+        }
+
+        .h {
+            grid-column: 1 / span 3;
+            grid-row: 4;
+        }
+
+        .i {
+            grid-column: 1 / span 3;
+            grid-row: 5;
+        }
+
+        button {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 2em;
+            font-weight: bold;
+            padding-left: 2em;
+            padding-right: 2em;
+        }
+    </style>
+</head>
+
+<body style="background-color: aqua;">
+    <header>Ibrahim Kedir Room Reservation</header>
+    <div class="wrapper">
+        <div class="box a">Name:</div>
+        <div class="box b"><input type="text" id="txtName" value="" /></div>
+        <div class="box c">Room</div>
+        <div class="box d">
+            <select id="selSize1" onchange="return handleSelectChange()">
+                <option value="H120">H120</option>
+                <option value="H153">H153</option>
+                <option value="H155">H155</option>
+
+            </select>
+        </div>
+        <div class="box e">Day & time</div>
+        <div class="box f">
+            Day <br />
+            <label for="Mon"><input id="Radio1" type="radio"  name="days" value="Mon" onclick="return handleRadioClick(this)" checked />Mon</label><br />
+            <label for="Tues"><input id="Radio2" type="radio"  name="days" value="Tues" onclick="return handleRadioClick(this)"/>Tues</label><br />
+            <label for="Wed"><input id="Radio3" type="radio"  name="days"  value="Wed" onclick="return handleRadioClick(this)" />Wed</label><br />
+            <label for="Thurs"><input id="Radio4" type="radio"  name="days" value="Thurs"  onclick="return handleRadioClick(this)" />Thurs</label><br />
+            <label for="Fri"><input id="Radio5" type="radio"  name="days" value="Fri" onclick="return handleRadioClick(this)" />Fri</label><br />
+        </div>
+        <div class="box g">
+            Time<br />
+            <label><input id="Radio6"  name="R2" type="radio" value="6" checked />6</label><br />
+            <label><input id="Radio7"  name="R2" type="radio" value="7" />7</label><br />
+            <label><input id="Radio8"  name="R2" type="radio" value="8" />8</label><br />
+            <label><input id="Radio9"  name="R2" type="radio" value="9" />9</label><br />
+            <label><input id="Radio10" name="R2" type="radio" value="10" />10</label><br />
+            <label><input id="Radio11" name="R2" type="radio" value="11" />11</label><br />
+        </div>
+        <div class="box h">
+
+            <button id="submit" onclick="submit()" type="submit" value="Place your order"
+                style="border-radius: 10px; border-color: blue;">Make Reservation</button>
+        </div>
+        <div class="box i" id="result">
+            Reservations: <br />
+            <textarea rows=10 cols=50 readonly></textarea>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        /* ibrahim kedir 
+        //
+--had trouble using the .nextElementsibling.innerHTML so gave radio buttons a vlaue that was thier radio 
+innerHTML text and used that for the output text--
+        */
+
+        let reservations = [];
+
+        function submit() {
+
+            if (document.getElementById("txtName").value == "") {
+                alert("name not entered")
+            }
+
+    
+
+            let userInput;
+            userInput = document.getElementById("txtName").value;
+            let userInput1;
+            userInput1 = document.getElementById("selSize1").value;
+            
+// radio button R1
+            let userInput2;
+            let userLabel2 = "";
+            for (let i = 0; i < document.getElementsByName("days").length; i++) {
+                if (document.getElementsByName("days")[i].checked) {
+                    userInput2 = document.getElementsByName("days")[i].value;
+                    userLabel2 = document.getElementsByName("days")[i].innerHTML;
+                
+                }//end if 
+
+            }//end for
+
+
+// radio button R2
+            let userInput3;
+            let userLabel3 = "";
+            for (let i = 0; i < document.getElementsByName("R2").length; i++) {
+                if (document.getElementsByName("R2")[i].checked) {
+                    userInput3 = document.getElementsByName("R2")[i].value;
+                    userLabel3 = document.getElementsByName("R2")[i].innerHTML;
+                
+                }//end if 
+
+            }//end for
+
+
+        
+            
+
+              document.getElementById("result").innerHTML = userInput1 + " " + userInput2 +" "+userInput3+ " " + userInput  ;
+
+            // cant figure out how to push 
+
+            let newresult = document.getElementById("result").value;
+                if (reservations.indexOf(newresult) == -1) {
+                    //alert("not found")
+                    reservations.push(newresult);
+                    document.getElementById("result").value =  document.getElementById("result").value;
+                    document.getElementById("reslut").focus();
+                }
+                else {
+                    alert("Duplication Found")
+                }
+
+                alert(reservations)
+                document.getElementById("result").innerHTML = reservations.join("<br />")
+
+        }
+
+
+      
+
+
+    </script>
+
+
+
+</body>
+
+</html>
